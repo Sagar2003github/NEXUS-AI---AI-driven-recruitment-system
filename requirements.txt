@@ -1,0 +1,8 @@
+flask
+flask-cors
+spacy
+sentence-transformers
+PyMuPDF
+PyGithub
+radon
+python-dotenv

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NexusAI | Candidate Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { background: #050505; color: white; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.1); }
+        .red-glow { box-shadow: 0 0 50px rgba(255, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div class="max-w-4xl w-full">
+        <div class="flex justify-between items-center mb-12">
+            <a href="/report" class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-red-500 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Report
+            </a>
+            <h1 class="text-xl font-black italic tracking-tighter">NEXUS<span class="text-red-600">AI</span> ANALYTICS</h1>
+        </div>
+
+        <div class="glass-panel rounded-[3rem] p-12 red-glow text-center">
+            <h2 class="text-sm font-bold uppercase tracking-[0.4em] mb-12 text-white/60 text-center">Skill Density Mapping</h2>
+            
+            <div class="max-w-lg mx-auto">
+                <canvas id="skillRadar"></canvas>
+            </div>
+
+            <p class="mt-12 text-xs text-white/30 italic">
+                *This chart represents the semantic weight of the candidate's expertise across 5 core domains.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('skillRadar').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: {{ data.radar.keys() | list | safe }},
+                datasets: [{
+                    label: 'Expertise Level',
+                    data: {{ data.radar.values() | list | safe }},
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                    borderColor: '#ff0000',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#ff0000',
+                    pointBorderColor: '#fff',
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: 'rgba(255, 255, 255, 0.5)', font: { size: 12, weight: 'bold' } },
+                        ticks: { display: false },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

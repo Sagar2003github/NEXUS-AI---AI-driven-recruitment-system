@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAI | Gateway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#050505',
+                        brandRed: '#ff0000',
+                        cardGray: '#0f0f0f',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050505; color: #ffffff; overflow: hidden; }
+        
+        .glass-card {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+        
+        .red-glow-btn {
+            background: #ff0000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+        .red-glow-btn:hover {
+            background-color: #cc0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .input-field {
+            background: #111111;
+            border: 1px solid #222222;
+            transition: all 0.2s;
+            color: white;
+        }
+        .input-field:focus {
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+            outline: none;
+        }
+
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative">
+
+    <div class="fixed -top-24 -left-24 w-96 h-96 bg-red-600/5 rounded-full blur-[120px] z-0"></div>
+    <div class="fixed -bottom-24 -right-24 w-96 h-96 bg-red-900/5 rounded-full blur-[120px] z-0"></div>
+
+    <div class="w-full max-w-[1100px] grid grid-cols-1 md:grid-cols-2 gap-12 p-6 z-10">
+        
+        <div class="flex flex-col justify-center space-y-6">
+            <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10 w-fit">
+                <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">Next-Gen Recruitment</span>
+            </div>
+            <h1 class="text-7xl font-extrabold tracking-tighter leading-none">
+                Nexus<span class="text-red-600 italic">AI</span>
+            </h1>
+            <p class="text-white/40 text-lg max-w-sm leading-relaxed">
+                Precision hiring powered by BERT. Bridging the gap between talent and industry requirements.
+            </p>
+            <div class="pt-8 float-anim">
+                <div class="w-24 h-1 bg-red-600 rounded-full"></div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-[3rem] p-12 shadow-2xl relative overflow-hidden">
+            <div id="form-container">
+                <div id="login-section">
+                    <h2 class="text-3xl font-bold mb-8">Welcome Back</h2>
+                    <form action="/login" method="POST" class="space-y-6">
+                        <div>
+                            <label class="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Email Address</label>
+                            <input type="email" name="email" required class="input-field w-full px-5 py-4 rounded-2xl text-sm" placeholder="admin@test.com">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Security Key</label>
+                            <input type="password" name="password" required class="input-field w-full px-5 py-4 rounded-2xl text-sm" placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="red-glow-btn w-full py-4 text-white font-black rounded-2xl text-xs uppercase tracking-widest mt-4">
+                            Access Dashboard
+                        </button>
+                    </form>
+                    <p class="mt-8 text-center text-sm text-white/40">
+                        New here? <button onclick="toggleForm()" class="text-red-600 font-bold hover:underline">Create Account</button>
+                    </p>
+                </div>
+
+                <div id="signup-section" class="hidden">
+                    <h2 class="text-3xl font-bold mb-8 text-white">Join NexusAI</h2>
+                    <form action="/signup" method="POST" class="space-y-5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="firstname" placeholder="First Name" required class="input-field px-5 py-4 rounded-2xl text-sm">
+                            <input type="text" name="lastname" placeholder="Last Name" required class="input-field px-5 py-4 rounded-2xl text-sm">
+                        </div>
+                        <input type="email" name="email" placeholder="Email Address" required class="input-field w-full px-5 py-4 rounded-2xl text-sm">
+                        <input type="password" name="password" placeholder="Create Password" required class="input-field w-full px-5 py-4 rounded-2xl text-sm">
+                        <button type="submit" class="red-glow-btn w-full py-4 text-white font-black rounded-2xl text-xs uppercase tracking-widest mt-4">
+                            Register Now
+                        </button>
+                    </form>
+                    <p class="mt-8 text-center text-sm text-white/40">
+                        Already have access? <button onclick="toggleForm()" class="text-red-600 font-bold hover:underline">Log In</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            document.getElementById('login-section').classList.toggle('hidden');
+            document.getElementById('signup-section').classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
